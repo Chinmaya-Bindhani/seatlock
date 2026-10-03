@@ -116,3 +116,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# REST FRAMEWORK THINGS
+
+from datetime import  timedelta
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+
+    "DEFAULT_THROTTLE_RATES": {
+        "login": "30/minute",
+        "register": "20/minute",
+    },
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),  # dev-friendly, tighten before production
+
+}
+
+
