@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.accounts',
+    'apps.tickets',
 ]
 
 AUTH_USER_MODEL="accounts.User"
@@ -135,6 +136,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "login": "30/minute",
         "register": "20/minute",
+        "refresh": "20/minute",
     },
 }
 
