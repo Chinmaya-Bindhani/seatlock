@@ -3,7 +3,6 @@ from . base import  *
 
 from pathlib import Path
 import environ
-from datetime import timedelta
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 environ.Env.read_env(PROJECT_ROOT / ".env")
