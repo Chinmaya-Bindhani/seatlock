@@ -1,7 +1,9 @@
+from django.contrib.auth import authenticate
+from rest_framework.exceptions import AuthenticationFailed
+
 from apps.accounts.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import  serializers
-from django.contrib.auth.password_validation import  validate_password
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -46,4 +48,10 @@ class LoginSerializers(serializers.Serializer):
     email=serializers.EmailField(max_length=255)
     password = serializers.CharField(write_only=True,trim_whitespace=False)
 
+    def validate(self,attrs):
+        email = attrs["email"].strip().lower()
+        user = authenticate(request=self.context.get("request"),email = email,password = attrs['password'],)
+        if user is None or not user.is_active:
+            raise AuthenticationFailed("theres something problem at login serializers")
+        return {"user":user}
 
